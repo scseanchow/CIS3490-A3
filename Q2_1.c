@@ -23,38 +23,37 @@ void runQ2_1() {
 
   int count = strlen(search_test);
   int search_count = 0;
-
+  int pattern_switch_counter = 0;
   struct timeb start, end;
   ftime(&start);
 
   FILE *data;
   data = fopen("data_5.txt", "r");
+  int m = strlen(search_test);
 
-  for (int i = 0; i < 44049; i++) {
-    fscanf(data, "%s", str);
+  while (fgets(str, 255, data) != NULL) {
 
-    int flag = 1;
+    int n = strlen(str);
 
-    for (int i = 0; i < strlen(search_test) - strlen(str); i++) {
-      for (int j = 0; j < strlen(str); j++) {
-        if (search_test[i + j] != str[j]) {
-          flag = 0;
+    for (int s = 0; s <= n - m; s++) {
+      for (int j = 0; j < m; j++) {
+        if (search_test[j] != str[s + j]) {
           break;
         }
+        if (j + 1 == m) {
+          // printf("%s", str);
+          search_count++;
+        }
+        pattern_switch_counter++;
       }
-    }
-
-    if (flag == 1) {
-      printf("%s\n",str);
-      search_count++;
     }
   }
 
   ftime(&end);
   int diff1 =
       (int)(1000.0 * (end.time - start.time) + (end.millitm - start.millitm));
-  printf("Total number of search patterns found for string: %s is %d. Total "
+  printf("Total number of search patterns found for string: %s is %d. Number of pattern switches was %d. Total "
          "elapsed time was: %d milliseconds.\n",
-         search_test, search_count, diff1);
+         search_test, search_count, pattern_switch_counter, diff1);
   return;
 }
