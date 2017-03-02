@@ -18,6 +18,7 @@ void runQ1_1();
 void runQ1_2();
 void runQ2_1();
 void runQ2_2();
+void runQ2_3();
 
 /*
 * main program
@@ -26,13 +27,14 @@ int main(int argc, char *argv[]) {
 
   int choice = 0;
 
-  while (choice != 7) {
+  while (choice != 6) {
     printf("----------------->>>MENU<<<-----------------\n");
     printf("1: brute force anagrams\n");
     printf("2: presort anagrams\n");
     printf("3: brute force string search\n");
     printf("4: horspool algorithm\n");
     printf("5: boyer moore algorithm\n");
+    printf("6: exit program\n");
     printf("----------------->>>END<<<------------------\n");
     scanf("%d", &choice);
     switch (choice) {
@@ -49,6 +51,7 @@ int main(int argc, char *argv[]) {
       runQ2_2();
       break;
     case 5:
+      runQ2_3();
       break;
     case 6:
       break;

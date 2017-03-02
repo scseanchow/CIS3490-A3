@@ -53,9 +53,11 @@ void runQ2_2() {
     i = m - 1;
     while (i < n) {
       k = 0;
-      while ((k < m) && (search_test[m - 1 - k] == str[i - k]))
+      while ((k < m) && (search_test[m - 1 - k] == str[i - k])){
+        pattern_switch_counter++;
         k++;
-      if (k == m) {
+      }
+      if (k + 1 == m) {
         search_count++;
         break;
       } else {
