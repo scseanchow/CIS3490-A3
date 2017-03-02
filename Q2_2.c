@@ -30,8 +30,11 @@ void runQ2_2() {
   char str[100];
 
   printf("string/pattern to search for: ");
-  scanf("%s", search_test);
 
+  // consume new line
+  fgetc(stdin);
+  fgets(search_test, 100, stdin);
+  strtok(search_test, "\n");
   int count = strlen(search_test);
   int search_count = 0;
   int pattern_switch_counter = 0;
@@ -47,12 +50,12 @@ void runQ2_2() {
   int i;
   char c;
 
-  // horspool
+  // horspool referenced: http://www-igm.univ-mlv.fr/~lecroq/string/node18.html
   while (fgets(str, 255, data) != NULL) {
 
     int n = strlen(str);
     int j = 0;
-    while (j <= n - m) {
+    while (j <  n - m) {
       c = str[j + m - 1];
       if (search_test[m - 1] == c && memcmp(search_test, str + j, m - 1) == 0) {
         search_count++;
@@ -64,9 +67,7 @@ void runQ2_2() {
   ftime(&end);
   int diff1 =
       (int)(1000.0 * (end.time - start.time) + (end.millitm - start.millitm));
-  printf("Total number of search patterns found for string: %s is %d. Number "
-         "of pattern switches was %d. Total "
-         "elapsed time was: %d milliseconds.\n",
+  printf("Total number of search patterns found for string: %s is %d.\n Number of pattern switches was %d. Total elapsed time was: %d milliseconds.\n",
          search_test, search_count, pattern_switch_counter, diff1);
   return;
 }
