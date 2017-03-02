@@ -15,13 +15,13 @@
 
 int t[500];
 
-void createTable(char* p) {
-  int i, j, m;
-  m = strlen(p);
-  for (i = 0; i < 500; i++)
-    t[i] = m;
-  for (j = 0; j < m - 1; j++)
-    t[p[j]] = m - 1 - j;
+void preBmBc(char *x, int m, int bmBc[]) {
+  int i;
+
+  for (i = 0; i < 500; ++i)
+    bmBc[i] = m;
+  for (i = 0; i < m - 1; ++i)
+    bmBc[x[i]] = m - i - 1;
 }
 
 void runQ2_2() {
@@ -42,27 +42,22 @@ void runQ2_2() {
   data = fopen("data_5.txt", "r");
   int m = strlen(search_test);
 
-  createTable(search_test);
+  preBmBc(search_test, m, t);
 
-  int i, j, k;
+  int i;
+  char c;
 
   // horspool
   while (fgets(str, 255, data) != NULL) {
 
     int n = strlen(str);
-    i = m - 1;
-    while (i < n) {
-      k = 0;
-      while ((k < m) && (search_test[m - 1 - k] == str[i - k])){
-        pattern_switch_counter++;
-        k++;
-      }
-      if (k + 1 == m) {
+    int j = 0;
+    while (j <= n - m) {
+      c = str[j + m - 1];
+      if (search_test[m - 1] == c && memcmp(search_test, str + j, m - 1) == 0) {
         search_count++;
-        break;
-      } else {
-        i += t[str[i]];
       }
+      j += t[c];
     }
   }
 
