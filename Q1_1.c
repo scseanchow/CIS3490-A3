@@ -13,6 +13,7 @@
 #include <limits.h>
 #include <sys/timeb.h>
 
+// brute force anagram
 void runQ1_1() {
 
   char anagram_test[100];
@@ -24,45 +25,44 @@ void runQ1_1() {
 
   struct timeb start, end;
   ftime(&start);
+  char * temp = malloc(sizeof(char) * 30);
 
   FILE *data;
   data = fopen("data_4.txt", "r");
   for (int i = 0; i < 30000; i++) {
     fscanf(data, "%s", str);
-    // test for anagram
-    if (strlen(str) == strlen(anagram_test)) {
-      int flag = 1;
-      int first_bucket[26] = {0};
-      int second_bucket[26] = {0};
-      int char_to_test = 0;
 
-      while (anagram_test[char_to_test] != '\0') {
-        first_bucket[anagram_test[char_to_test] - 'a' + 49]++;
-        char_to_test++;
-      }
+    int length_string = strlen(str);
+    int length_anagram = strlen(anagram_test);
+    int flag = 0;
 
-      char_to_test = 0;
+    temp = strcpy(temp,str);
 
-      while (str[char_to_test] != '\0') {
-        second_bucket[str[char_to_test] - 'a' + 49]++;
-        char_to_test++;
-      }
-
-      for (int j = 0; j < 26; j++) {
-        if (first_bucket[j] != second_bucket[j]){
-          flag = 0;
-          continue;
+      if (length_string == length_anagram) {
+      for (size_t i = 0; i < length_anagram; i++) {
+        flag = 1;
+        for (size_t j = 0; j < length_string; j++) {
+          if (anagram_test[i] == temp[j]){
+            temp[j] = '!';
+            flag = 0;
+            break;
+          }
+        }
+        if (flag == 1){
+          break;
         }
       }
-      if (flag == 1){
+      if (flag == 0){
         printf("%s\n",str);
         anagram_count++;
       }
     }
   }
   ftime(&end);
-  int diff1 = (int)(1000.0 * (end.time - start.time) +
-                (end.millitm - start.millitm));
-  printf("Total number of anagrams for string: %s is %d. Total elapsed time was: %d milliseconds.\n",anagram_test,anagram_count,diff1 );
+  int diff1 =
+      (int)(1000.0 * (end.time - start.time) + (end.millitm - start.millitm));
+  printf("Total number of anagrams for string: %s is %d. Total elapsed time "
+         "was: %d milliseconds.\n",
+         anagram_test, anagram_count, diff1);
   return;
 }

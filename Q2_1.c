@@ -31,23 +31,30 @@ void runQ2_1() {
   data = fopen("data_5.txt", "r");
 
   for (int i = 0; i < 44049; i++) {
-    int flag = 1;
     fscanf(data, "%s", str);
-    for (int i = 0; i < count; i++){
-      if (str[i] != search_test[i]){
-        flag = 0;
-        //continue;
+
+    int flag = 1;
+
+    for (int i = 0; i < strlen(search_test) - strlen(str); i++) {
+      for (int j = 0; j < strlen(str); j++) {
+        if (search_test[i + j] != str[j]) {
+          flag = 0;
+          break;
+        }
       }
     }
-    if (flag == 1){
-      //printf("%s\n",str);
+
+    if (flag == 1) {
+      printf("%s\n",str);
       search_count++;
     }
   }
 
   ftime(&end);
-  int diff1 = (int)(1000.0 * (end.time - start.time) +
-                (end.millitm - start.millitm));
-  printf("Total number of search patterns found for string: %s is %d. Total elapsed time was: %d milliseconds.\n",search_test,search_count,diff1 );
+  int diff1 =
+      (int)(1000.0 * (end.time - start.time) + (end.millitm - start.millitm));
+  printf("Total number of search patterns found for string: %s is %d. Total "
+         "elapsed time was: %d milliseconds.\n",
+         search_test, search_count, diff1);
   return;
 }

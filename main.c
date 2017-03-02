@@ -15,6 +15,7 @@
 
 // function prototypes
 void runQ1_1();
+void runQ1_2();
 void runQ2_1();
 
 /*
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
       runQ1_1();
       break;
     case 2:
-
+      runQ1_2();
       break;
     case 3:
       runQ2_1();
