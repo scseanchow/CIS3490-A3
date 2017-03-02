@@ -17,6 +17,7 @@
 void runQ1_1();
 void runQ1_2();
 void runQ2_1();
+void runQ2_2();
 
 /*
 * main program
@@ -45,6 +46,7 @@ int main(int argc, char *argv[]) {
       runQ2_1();
       break;
     case 4:
+      runQ2_2();
       break;
     case 5:
       break;
